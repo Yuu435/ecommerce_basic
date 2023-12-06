@@ -1,3 +1,3 @@
-export const roundPrice =(price)=>{
-    return price.toFixed(2)
-}
+export const roundPrice = (price: number) => {
+  return price.toFixed(2);
+};

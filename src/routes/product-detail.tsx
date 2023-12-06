@@ -7,7 +7,7 @@ import ReactStars from "react-stars";
 import { roundPrice } from "../helpers/round-price";
 import "./product-detail.css";
 import { useCart } from "../hooks/useCart";
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -23,7 +23,7 @@ export default function ProductDetail() {
     return <div>Loading product data ...</div>;
   }
   if (isError) {
-    if (error.response.status === 404) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
       return <div>Product not found</div>;
     } else {
       return <div>Fail to load product data: {error.message}</div>;
@@ -32,12 +32,12 @@ export default function ProductDetail() {
 
   const product = data?.data;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onAdd({ product, quantity });
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setQuantity(+e.target.value);
   };
 
@@ -46,7 +46,7 @@ export default function ProductDetail() {
       <div className="product-detail">
         <div className="product-images">
           <AwesomeSlider bullets={false}>
-            {product.images.map((image) => (
+            {product.images.map((image: string) => (
               <div key={image} className="product-image">
                 <img src={image} alt={product.title} />
               </div>

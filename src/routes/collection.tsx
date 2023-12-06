@@ -32,9 +32,9 @@ export default function Collection() {
 
   const products = data?.data.products;
 
-  const handlePageClick = (e) => {
+  const handlePageClick = (e: { selected: number }) => {
     setSearchParams((prev) => {
-      const newSearchParams = {};
+      const newSearchParams: { [key: string]: string } = {};
 
       for (const [key, value] of prev.entries()) {
         newSearchParams[key] = value;

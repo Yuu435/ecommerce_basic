@@ -3,7 +3,6 @@ import { roundPrice } from "../helpers/round-price";
 import { useCart } from "../hooks/useCart";
 import "./checkout.css";
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function Checkout() {
@@ -83,7 +82,7 @@ export default function Checkout() {
                 className="last-name"
                 id="last-name"
                 {...register("lastname", {
-                  required: "Please enter your firstname",
+                  required: "Please enter your lastname",
                 })}
               />
               {errors.lastname && <p>{errors.lastname.message}</p>}

@@ -3,7 +3,21 @@ import { useCart } from "../../hooks/useCart";
 import { roundPrice } from "../../helpers/round-price";
 import "./cart-item.css";
 
-export default function CartItem({ item }) {
+interface propChildrenItem {
+  item: {
+    product: {
+      id: number;
+      title: string;
+      thumbnail: string;
+      price: number;
+      discountPercentage: number;
+      stock: number;
+    };
+    quantity: number;
+  };
+}
+
+export default function CartItem({ item }: propChildrenItem) {
   const { onChange, onRemove } = useCart();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const product = item.product;

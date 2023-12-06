@@ -5,7 +5,7 @@ import "./shopping-cart.css";
 import CartInfo from "../components/cart/cart-info";
 
 export default function ShoppingCart() {
-  const { items, totalItem } = useCart();
+  const { totalItem } = useCart();
 
   if (totalItem === 0) {
     return (

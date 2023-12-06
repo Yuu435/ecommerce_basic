@@ -3,8 +3,19 @@ import { roundPrice } from "../../helpers/round-price";
 import "./product-cart.css";
 import { Link } from "react-router-dom";
 
-export default function ProductCart({ product }) {
+interface ProductProp {
+  product: {
+    id: number;
+    title: string;
+    thumbnail: string;
+    price: number;
+    discountPercentage: number;
+    stock: number;
+    rating: number;
+  };
+}
 
+export default function ProductCart({ product }: ProductProp) {
   return (
     <Link className="product-link" to={`/products/${product.id}`}>
       <div className="product-cart">

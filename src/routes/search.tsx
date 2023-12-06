@@ -1,10 +1,10 @@
 import ProductList from "../components/product/product-list";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
 export default function Search() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams /*setSearchParams*/] = useSearchParams();
   const q = searchParams.get("q") || "";
 
   const { isLoading, isError, error, data } = useQuery({

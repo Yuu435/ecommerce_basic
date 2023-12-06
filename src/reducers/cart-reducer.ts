@@ -4,19 +4,33 @@ export const CART = {
   REMOVE_ITEM: "cart/remove-item",
 };
 
-export const cartReducer = (state, action) => {
+interface CartItem {
+  product: {
+    id: number;
+  };
+  quantity: number;
+}
+
+interface CartState {
+  items: CartItem[];
+}
+interface CartAction {
+  type: string;
+  payload: any;
+}
+
+export const cartReducer = (state: CartState, action: CartAction) => {
   switch (action.type) {
-    
     case CART.ADD_ITEM: {
       const isExist =
         state.items.findIndex(
-          (item) => item.product.id === action.payload.product.id
+          (item: CartItem) => item.product.id === action.payload.product.id
         ) !== -1;
 
       if (isExist) {
         return {
           ...state,
-          items: state.items.map((item) =>
+          items: state.items.map((item: CartItem) =>
             item.product.id === action.payload.product.id
               ? { ...item, quantity: item.quantity + action.payload.quantity }
               : item
@@ -33,10 +47,10 @@ export const cartReducer = (state, action) => {
     case CART.CHANGE_QUANTITY: {
       return {
         ...state,
-        items: state.items.map((item) =>
+        items: state.items.map((item: CartItem) =>
           item.product.id === action.payload.id
             ? { ...item, quantity: action.payload.quantity }
-            : item,
+            : item
         ),
       };
     }
@@ -45,7 +59,7 @@ export const cartReducer = (state, action) => {
       return {
         ...state,
         items: state.items.filter(
-          (item) => item.product.id !== action.payload.id
+          (item: CartItem) => item.product.id !== action.payload.id
         ),
       };
     }

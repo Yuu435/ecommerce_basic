@@ -1,13 +1,13 @@
-import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Navigation from "./navigation";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 
 export default function Header() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: FormEvent) => {
     e.preventDefault();
 
     navigate(`/search?q=${search.trim()}`);

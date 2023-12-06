@@ -1,13 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import "./filter.css";
 import { useSearchParams } from "react-router-dom";
+
+interface FilterState {
+  category: string;
+}
 
 export default function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [filter, setFilter] = useState({
+  const [filter, setFilter] = useState<FilterState>({
     category: searchParams.get("category") || "all",
   });
 
@@ -23,10 +27,11 @@ export default function Filter() {
         .get("https://dummyjson.com/products/categories")
         .then((res) => res.data),
   });
+  console.log(categories);
 
   useEffect(() => {
     setSearchParams((prev) => {
-      const newSearchParams = {};
+      const newSearchParams: { [key: string]: string } = {};
 
       for (const [key, value] of prev.entries()) {
         newSearchParams[key] = value;
@@ -41,6 +46,13 @@ export default function Filter() {
     });
   }, [filter]);
 
+  const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilter((prev) => ({
+      ...prev,
+      category: e.target.value,
+    }));
+  };
+
   return (
     <div className="filter">
       <div className="filter-heading">Filter by categories</div>
@@ -48,25 +60,27 @@ export default function Filter() {
       {isLoading ? (
         <div>Loading categories data </div>
       ) : isError ? (
-        <div>Fail loading categories data:{error.message}</div>
+        <div>Fail loading categories data:{(error as Error).message}</div>
       ) : (
         <form>
           <div className="categories">
-            {categories.map((category) => (
-              <div key={category} className="category">
-                <input
-                  type="radio"
-                  id={category}
-                  name="category"
-                  value={category}
-                  checked={category == filter.category}
-                  onChange={(e) =>
-                    setFilter((prev) => ({ ...prev, category: e.target.value }))
-                  }
-                />
-                <label htmlFor={category}>{category}</label>
-              </div>
-            ))}
+            {categories ? (
+              categories.map((category: string) => (
+                <div key={category} className="category">
+                  <input
+                    type="radio"
+                    id={category}
+                    name="category"
+                    value={category}
+                    checked={category == filter.category}
+                    onChange={handleCategoryChange}
+                  />
+                  <label htmlFor={category}>{category}</label>
+                </div>
+              ))
+            ) : (
+              <div>No categories available</div>
+            )}
           </div>
 
           {filter.category != "all" ? (
