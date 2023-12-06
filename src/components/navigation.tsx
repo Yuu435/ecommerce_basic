@@ -1,4 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
+import "./header.css";
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function Navigation() {
   return (
@@ -14,7 +16,9 @@ export default function Navigation() {
       <div className="header-left">
         <Link to={"/login"}>Login</Link>
         <Link to={"/signup"}>Signup</Link>
-        <Link to={"/shopping-cart"}>Shopping Cart</Link>
+        <Link to={"/shopping-cart"}>
+          <FaShoppingCart />
+        </Link>
       </div>
     </nav>
   );
