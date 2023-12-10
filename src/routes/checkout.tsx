@@ -49,7 +49,7 @@ export default function Checkout() {
     enabled: !!district,
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: any) => {
     console.log(values);
   };
 
@@ -73,7 +73,7 @@ export default function Checkout() {
                   required: "Please enter your firstname",
                 })}
               />
-              {errors.firstname && <p>{errors.firstname.message}</p>}
+              {errors.firstname && <p>{errors.firstname.message as string}</p>}
             </div>
             <div className="form-field">
               <label htmlFor="last-name">Last name</label>
@@ -85,7 +85,7 @@ export default function Checkout() {
                   required: "Please enter your lastname",
                 })}
               />
-              {errors.lastname && <p>{errors.lastname.message}</p>}
+              {errors.lastname && <p>{errors.lastname.message as string}</p>}
             </div>
           </div>
 
@@ -99,7 +99,7 @@ export default function Checkout() {
                 {...register("province")}
               >
                 <option>Choose province</option>
-                {provinces.map((province) => (
+                {provinces.map((province: any) => (
                   <option key={province.code} value={province.code}>
                     {province.name}
                   </option>
@@ -116,7 +116,7 @@ export default function Checkout() {
                 {...register("district")}
               >
                 <option>Choose districts</option>
-                {districts.map((district) => (
+                {districts.map((district: any) => (
                   <option key={district.code} value={district.code}>
                     {district.name}
                   </option>
@@ -133,7 +133,7 @@ export default function Checkout() {
                 {...register("ward")}
               >
                 <option>Choose ward</option>
-                {wards.map((ward) => (
+                {wards.map((ward: any) => (
                   <option key={ward.code} value={ward.code}>
                     {ward.name}
                   </option>
@@ -190,7 +190,7 @@ export default function Checkout() {
       {/* Cart Info */}
       <div className="cart-info">
         <div className="cart-items">
-          {items.map((item) => (
+          {items.map((item: any) => (
             <div key={item.product.id} className="cart-item">
               <div className="product">
                 <div className="product-thumbnail">

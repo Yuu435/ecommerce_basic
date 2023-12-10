@@ -9,30 +9,29 @@ import Filter from "../components/filter";
 
 export default function Collection() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get("page") || 1;
-  const limit = searchParams.get("limit") || 12;
+  const page: any = searchParams.get("page") || 1;
+  const limit: any = searchParams.get("limit") || 12;
   const category = searchParams.get("category");
 
-  const { isPending, isError, error, data, isFetching, isPlaceholderData } =
-    useQuery({
-      queryKey: category
-        ? ["category", { category, page, limit }]
-        : ["products", { page, limit }],
-      queryFn: () =>
-        axios.get(
-          category
-            ? `https://dummyjson.com/products/category/${category}`
-            : `https://dummyjson.com/products`,
-          {
-            params: { skip: (page - 1) * limit, limit },
-          }
-        ),
-      placeholderData: keepPreviousData,
-    });
+  const { isPending, isError, error, data } = useQuery({
+    queryKey: category
+      ? ["category", { category, page, limit }]
+      : ["products", { page, limit }],
+    queryFn: () =>
+      axios.get(
+        category
+          ? `https://dummyjson.com/products/category/${category}`
+          : `https://dummyjson.com/products`,
+        {
+          params: { skip: (page - 1) * limit, limit },
+        }
+      ),
+    placeholderData: keepPreviousData,
+  });
 
   const products = data?.data.products;
 
-  const handlePageClick = (e: { selected: number }) => {
+  const handlePageClick = (e: { selected: any }) => {
     setSearchParams((prev) => {
       const newSearchParams: { [key: string]: string } = {};
 

@@ -4,7 +4,7 @@ import { CART } from "../reducers/cart-reducer";
 import { toast } from "react-toastify";
 
 export const useCart = () => {
-  const [state, dispatch] = useContext(CartContext);
+  const [state, dispatch]: any = useContext(CartContext);
 
   const addToCart = ({
     product,
